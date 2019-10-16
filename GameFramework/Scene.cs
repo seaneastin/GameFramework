@@ -65,7 +65,7 @@ namespace GameFramework
             //clear the screen
             Console.Clear();
 
-            char[,] display = new char[ _sizeY , _sizeX ];
+            char[,] display = new char[_sizeX, _sizeY ];
 
             foreach (Entity e in _entities)
             {
