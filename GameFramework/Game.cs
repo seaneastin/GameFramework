@@ -20,8 +20,14 @@ namespace GameFramework
         }
         public void Run()
         {
+            _currentScene.AddEntity(new Wall(0, 0));
+            _currentScene.AddEntity(new Wall(1, 4));
+            _currentScene.AddEntity(new Wall(2, 4));
+            _currentScene.AddEntity(new Wall(3, 2));
+            _currentScene.AddEntity(new Wall(4, 3));
+            _currentScene.AddEntity(new Wall(5, 3));
             player player = new player();
-            Entity enemy = new Entity('#');
+            Entity enemy = new Entity('e');
             _currentScene.AddEntity(enemy);
             
             _currentScene.AddEntity(player);

@@ -25,36 +25,35 @@ namespace GameFramework
         //Move one space to the right
         private void MoveRight()
         {
-            x++;
-            if (x > MyScene.SizeX-1)
-            {
-                x--;
-            }
-        }
-        private void MoveLeft()
-        {
-            x--;
-            if (x < 0)
+            if (!MyScene.GetCollision(x + 1, y))
             {
                 x++;
             }
         }
+        private void MoveLeft()
+        {
+            
+            if (!MyScene.GetCollision(x - 1, y))
+            {
+                x--;
+            }
+        }
         private void MoveUp()
         {
-            y--;
-            if (y < 0)
+            
+            if (!MyScene.GetCollision(x, y - 1))
                 
             {
-                y++;
+                y--;
             }
 
         }
         private void MoveDown()
         {
-            y++;
-            if (y > MyScene.SizeX - 1)
+            
+            if (!MyScene.GetCollision(x, y + 1))
             {
-                y--;
+                y++;
             }
         }
 

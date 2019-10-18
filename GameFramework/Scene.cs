@@ -14,18 +14,18 @@ namespace GameFramework
         private List<Entity> _entities = new List<Entity>();
         private int _sizeX;
         private int _sizeY;
+        private bool[,] _collision;
 
-
-
-        public Scene()
+        public Scene() : this(24, 6)
         {
-            _sizeX = 10;
-            _sizeY = 13;
+
         }
 
         public Scene(int sizeX, int sizeY)
         {
             _sizeX = sizeX;
+            _sizeY = sizeY;
+            _collision = new bool[_sizeX, _sizeY];
         }
 
 
@@ -53,9 +53,22 @@ namespace GameFramework
         }
         public void Update()
         {
+            //Create the collision grid
+
             foreach (Entity e in _entities)
             {
+                _collision[(int)e.x, (int)e.y] = e.Solid;
                 e.Update();
+                //position each entity's icon in the collision grid
+                int x = (int)e.x;
+                int y = (int)e.y;
+                if (e.x >= 0 && e.y < _sizeY)
+                {
+                    if (!_collision[x,y])
+                    {
+                        _collision[x, y] = e.Solid;
+                    }
+                }
             }
         }
 
@@ -72,7 +85,7 @@ namespace GameFramework
                 //posistion each Entity's icon in the display
                 if (e.x >= 0 && e.x < _sizeX && e.y >= 0 && e.y < _sizeY)
                 {
-                    display[e.x,e.y] = e.Icon;
+                    display[(int)e.x,(int)e.y] = e.Icon;
                 }
                 e.Draw();
             }
@@ -110,6 +123,20 @@ namespace GameFramework
                 e.MyScene = null;
             }
             _entities.Clear();
+        }
+        //returns whether there is a solid entity at the point
+        public bool GetCollision(float x, float y)
+        {
+            if (x >= 0 && y >= 0 && x < _sizeX && y < _sizeY)
+            {
+
+
+                return _collision[(int)x, (int)y];
+            }
+            else
+            {
+                return true;
+            }
         }
 
     }
