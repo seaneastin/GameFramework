@@ -15,8 +15,14 @@ namespace GameFramework
         private int _sizeX;
         private int _sizeY;
         private bool[,] _collision;
+        private List<Entity>[,] _tracking;
 
-        public Scene() : this(24, 6)
+
+        public Event Onstart;
+        public Event OnUpdate;
+        public Event OnDraw;
+
+        public Scene() : this(6, 6)
         {
 
         }
@@ -26,6 +32,8 @@ namespace GameFramework
             _sizeX = sizeX;
             _sizeY = sizeY;
             _collision = new bool[_sizeX, _sizeY];
+            //create the tracking grid
+            _tracking = new List<Entity>[_sizeX, _sizeY];
         }
 
 
@@ -46,6 +54,8 @@ namespace GameFramework
 
         public void Start()
         {
+            Onstart?.Invoke();
+
             foreach (Entity e in _entities)
             {
                 e.start();
@@ -53,17 +63,32 @@ namespace GameFramework
         }
         public void Update()
         {
-            //Create the collision grid
+            //clear the collision grid
+
+            OnUpdate?.Invoke();
+            //Create the collision gri
+
+            //clear the tracking grid
+            for (int y = 0; y < _sizeY; y++)
+            {
+                for (int x = 0; x < _sizeX; x++)
+                {
+                    _tracking[x, y] = new List<Entity>();
+                }
+                Console.WriteLine();
+            }
+
 
             foreach (Entity e in _entities)
             {
-                _collision[(int)e.x, (int)e.y] = e.Solid;
                 e.Update();
                 //position each entity's icon in the collision grid
                 int x = (int)e.x;
                 int y = (int)e.y;
-                if (e.x >= 0 && e.y < _sizeY)
+                if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
+                    _tracking[x, y].Add(e);
+
                     if (!_collision[x,y])
                     {
                         _collision[x, y] = e.Solid;
@@ -75,6 +100,9 @@ namespace GameFramework
 
         public void Draw()
         {
+
+            OnDraw?.Invoke();
+
             //clear the screen
             Console.Clear();
 
@@ -135,9 +163,24 @@ namespace GameFramework
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
+        //Returns the List of ENtities at a specific point
+        public List<Entity> GetEntities(float x, float y)
+        {
+            //Ensure the point is within the Scene
+            if (x >= 0 && y >= 0 && x < _sizeX && y < _sizeY)
+            {
+                return _tracking[(int)x, (int)y];
+            }
+
+            else
+            {
+                return new List<Entity>();
+            }
+            return new List<Entity>();
+        }
     }
 }

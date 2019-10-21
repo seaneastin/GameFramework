@@ -13,7 +13,7 @@ namespace GameFramework
             x = X;
             y = Y;
             Solid = true;
-            Icon = '#';
+            Icon = '█';
         }
     }
 }
