@@ -68,6 +68,7 @@ namespace GameFramework
         {
 
         }
+        
 
         public Entity(char icon)
         {
@@ -76,9 +77,10 @@ namespace GameFramework
 
 
         //creates an Entity with the specified icon and image
-        public Entity(char icon, string imageName) : this (icon)
+        public Entity(char icon, string imageName) : this(icon)
         {
             Sprite = RL.LoadTexture(imageName);
+            Icon = icon;
         }
 
         

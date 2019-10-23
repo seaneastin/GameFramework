@@ -11,6 +11,8 @@ namespace GameFramework
 
     class Game
     {
+        public static readonly int SizeX = 16;
+        public static readonly int SizeY = 16;
         //whetehr or not the Game should finish running and exit
         public static bool Gameover = false;
 
@@ -29,15 +31,11 @@ namespace GameFramework
         {
             Room startingRoom = new Room(10, 10);
             Room otherRoom = new Room(10, 10);
-            Enemy enemy = new Enemy();
+            Enemy enemy = new Enemy('e' , "imges/ezgif/tile196.png");
 
-            void OtherRoomStart()
-            {
-                enemy.x = 4;
-                enemy.y = 5;
-            }
+            enemy.x = 3;
+            enemy.y = 3;
 
-            otherRoom.Onstart += OtherRoomStart;
             startingRoom.North = otherRoom;
            
             otherRoom.South = otherRoom;
@@ -46,23 +44,23 @@ namespace GameFramework
             startingRoom.East = otherRoom;
 
 
-            startingRoom.AddEntity(new Wall(0, 0));
-            startingRoom.AddEntity(new Wall(1, 4));
-            startingRoom.AddEntity(new Wall(2, 4));
-            startingRoom.AddEntity(new Wall(3, 2));
+            startingRoom.AddEntity(new Wall(0, 0, "imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(1, 4,"imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(2, 4, "imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(3, 2, "imges/ezgif/tile012.png"));
             //add a border
             for (int i = 0; i < otherRoom.SizeX; i++)
             {
                 if (i != 2)
                 {
-                    otherRoom.AddEntity(new Wall(i, otherRoom.SizeY));
+                    otherRoom.AddEntity(new Wall(i, otherRoom.SizeY, "imges/ezgif/tile012.png"));
                 }
             }
 
 
             for (int i = 0; i < startingRoom.SizeX; i++)
             {
-                otherRoom.AddEntity(new Wall(i, startingRoom.SizeY - 1));
+                otherRoom.AddEntity(new Wall(i, startingRoom.SizeY - 1, "imges/ezgif/tile012.png"));
             }
 
 
@@ -70,7 +68,7 @@ namespace GameFramework
             {
                 if (i != 2)
                 {
-                    otherRoom.AddEntity(new Wall(i, 0));
+                    otherRoom.AddEntity(new Wall(i, 0, "imges/ezgif/tile012.png"));
                 }
             }
 
@@ -78,7 +76,7 @@ namespace GameFramework
             {
                 if (i != 2)
                 {
-                    otherRoom.AddEntity(new Wall(0, i));
+                    otherRoom.AddEntity(new Wall(0, i, "imges/ezgif/tile012.png"));
                 }
             }
 
@@ -86,19 +84,19 @@ namespace GameFramework
             {
                 if (i != 2)
                 {
-                    otherRoom.AddEntity(new Wall(otherRoom.SizeX - 1, i));
+                    otherRoom.AddEntity(new Wall(otherRoom.SizeX - 1, i, "imges/ezgif/tile012.png"));
                 }
             }
 
 
 
-            startingRoom.AddEntity(new Wall(3, 2));
-            startingRoom.AddEntity(new Wall(3, 2));
-            startingRoom.AddEntity(new Wall(3, 2));
+            startingRoom.AddEntity(new Wall(3, 2, "imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(3, 2, "imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(3, 2, "imges/ezgif/tile012.png"));
 
-            startingRoom.AddEntity(new Wall(4, 3));
-            startingRoom.AddEntity(new Wall(5, 3));
-            Player player = new Player("aie-logo-dark.jpg");
+            startingRoom.AddEntity(new Wall(4, 3, "imges/ezgif/tile012.png"));
+            startingRoom.AddEntity(new Wall(5, 3, "imges/ezgif/tile012.png"));
+            Player player = new Player("imges/ezgif/tile195.png");
             otherRoom.AddEntity(enemy);
             startingRoom.AddEntity(player);
             player.x = 1;

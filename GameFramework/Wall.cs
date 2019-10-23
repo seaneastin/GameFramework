@@ -8,7 +8,7 @@ namespace GameFramework
 {
     class Wall : Entity
     {
-        public Wall(int X, int Y) : base("█" , "/images/ezgif/tile012.png")
+        public Wall(int X, int Y, string imageName) : base('█', imageName) //come back to this later
         {
             x = X;
             y = Y;
