@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raylib;
+using RL = Raylib.Raylib;
 
 namespace GameFramework
 {
@@ -18,6 +20,8 @@ namespace GameFramework
 
 
         public char Icon { get; set; } = ' ';
+        //the image representing the entity on the screen
+        public Texture2D Sprite { get; set; }
 
         public bool Solid { get; set; } = false;
 
@@ -68,6 +72,13 @@ namespace GameFramework
         public Entity(char icon)
         {
             Icon = icon;
+        }
+
+
+        //creates an Entity with the specified icon and image
+        public Entity(char icon, string imageName) : this (icon)
+        {
+            Sprite = RL.LoadTexture(imageName);
         }
 
         

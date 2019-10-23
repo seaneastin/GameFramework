@@ -68,6 +68,10 @@ namespace GameFramework
             {
                 y++;
             }
+            else
+            {
+                _facing = Direction.North;
+            }
         }
 
         public void MoveUP()
@@ -91,6 +95,10 @@ namespace GameFramework
             {
                 x--;
             }
+            else
+            {
+                _facing = Direction.South;
+            }
         }
 
         public void MoveRight()
@@ -98,6 +106,10 @@ namespace GameFramework
             if (!MyScene.GetCollision(x + 1, y))
             {
                 x++;
+            }
+            else
+            {
+                _facing = Direction.South;
             }
         }
 

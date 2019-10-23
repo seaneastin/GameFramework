@@ -4,6 +4,8 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raylib;
+using RL = Raylib.Raylib;
 
 namespace GameFramework
 {
@@ -12,6 +14,7 @@ namespace GameFramework
 
 
         private List<Entity> _entities = new List<Entity>();
+        private List<Entity> _removals = new List<Entity>();
         private int _sizeX;
         private int _sizeY;
         private bool[,] _collision;
@@ -79,6 +82,18 @@ namespace GameFramework
             }
 
 
+            foreach (Entity e in _removals)
+            {
+                _entities.Remove(e);
+            }
+            _removals.Clear();
+
+            foreach (Entity e in _removals)
+            {
+                //Remove e from _entities
+            }
+
+
             foreach (Entity e in _entities)
             {
                 e.Update();
@@ -95,6 +110,11 @@ namespace GameFramework
                     }
                 }
             }
+            foreach (Entity e in _entities)
+            {
+                //Call the Entity's Update events
+                e.Update();
+            }
         }
 
 
@@ -105,25 +125,37 @@ namespace GameFramework
 
             //clear the screen
             Console.Clear();
+            RL.ClearBackground(Color.DARKBROWN);
+
 
             char[,] display = new char[_sizeX, _sizeY ];
 
             foreach (Entity e in _entities)
             {
+                int x = (int)e.x;
+                int y = (int)e.y;
                 //posistion each Entity's icon in the display
-                if (e.x >= 0 && e.x < _sizeX && e.y >= 0 && e.y < _sizeY)
+                if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
-                    display[(int)e.x,(int)e.y] = e.Icon;
+                    display[x,y] = e.Icon;
                 }
-                e.Draw();
+                //e.Draw();
             }
             for (int i = 0; i < _sizeY; i++) 
             {
                 for (int j = 0; j < _sizeX; j++)
                 {
                     Console.Write(display[j, i]);
+                    foreach (Entity e in _tracking[j, i])
+                    {
+                        RL.DrawTexture(e.Sprite, j * 16, i * 16, Color.WHITE);
+                    }
                 }
                 Console.WriteLine();
+            }
+            foreach (Entity e in _entities)
+            {
+                e.Draw();
             }
         }
 
@@ -137,7 +169,7 @@ namespace GameFramework
         //removes an entity form the scene
         public void RemoveEntity(Entity entity)
         {
-            _entities.Remove(entity);
+            _removals.Add(entity);
             entity.MyScene = null;
         }
 
@@ -148,9 +180,9 @@ namespace GameFramework
         {
             foreach (Entity e in _entities)
             {
-                e.MyScene = null;
+                RemoveEntity(e);
             }
-            _entities.Clear();
+ 
         }
         //returns whether there is a solid entity at the point
         public bool GetCollision(float x, float y)
