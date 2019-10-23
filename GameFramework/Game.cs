@@ -39,9 +39,9 @@ namespace GameFramework
             startingRoom.North = otherRoom;
            
             otherRoom.South = otherRoom;
-            startingRoom.South = otherRoom;
-            startingRoom.West = otherRoom;
-            startingRoom.East = otherRoom;
+            //startingRoom.South = otherRoom;
+            //startingRoom.West = otherRoom;
+            //startingRoom.East = otherRoom;
 
 
             startingRoom.AddEntity(new Wall(0, 0, "imges/ezgif/tile012.png"));
