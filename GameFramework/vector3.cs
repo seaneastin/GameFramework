@@ -52,5 +52,39 @@ namespace GameFramework
             return new Vector3(lhs.X * number, lhs.Y * number, lhs.Z * number);
         }
 
+
+        public float Magnitude()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+        }
+
+        public float MagnitudeSqr()
+        {
+            return (X * X + Y * Y + Z * Z);
+        }
+
+        public float Distance(Vector3 other)
+        {
+            float diffX = X - other.X;
+            float diffY = Y - other.Y;
+            float diffZ = Z - other.Z;
+            return (float)Math.Sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+        }
+
+        public void Normalize()
+        {
+            float m = Magnitude();
+            this.X /= m;
+            this.Y /= m;
+            this.Z /= m;
+        }
+
+        public Vector3 GetNormalised()
+        {
+            return (this / Magnitude());
+        }
+
+
+
     }
 }

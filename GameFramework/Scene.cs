@@ -143,7 +143,7 @@ namespace GameFramework
                     Console.Write(display[j, i]);
                     foreach (Entity e in _tracking[j, i])
                     {
-                        RL.DrawTexture(e.Sprite, j * 16, i * 16, Color.WHITE);
+                        RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
                     }
                 }
                 Console.WriteLine();

@@ -11,6 +11,7 @@ namespace GameFramework
 
     class Game
     {
+        Player player;
         public static readonly int SizeX = 16;
         public static readonly int SizeY = 16;
         //whetehr or not the Game should finish running and exit
@@ -110,7 +111,7 @@ namespace GameFramework
 
             startingRoom.AddEntity(new Wall(4, 3, "imges/ezgif/tile012.png"));
             startingRoom.AddEntity(new Wall(5, 3, "imges/ezgif/tile012.png"));
-            Player player = new Player("imges/ezgif/tile195.png");
+            player = new Player("imges/ezgif/tile195.png");
             otherRoom.AddEntity(enemy);
             startingRoom.AddEntity(player);
             player.x = 1;
@@ -141,23 +142,25 @@ namespace GameFramework
                 //update the active Scene
                 _currentScene.Update();
 
-                int mouseX = (RL.GetMouseX() + 320) / 2;
-                int mouseY = (RL.GetMouseY() - 240) / 4;
+                /*  int mouseX = (RL.GetMouseX() + 320) / 2;
+                  int mouseY = (RL.GetMouseY() - 240) / 4;
 
-                Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
-                Raylib.Vector3 cameraTarget = new Raylib.Vector3(mouseX, 0, mouseY);
-                Raylib.Vector3 cameraUp = new Raylib.Vector3(0, 0, 1);
-
-
+                  Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
+                  Raylib.Vector3 cameraTarget = new Raylib.Vector3(mouseX, 0, mouseY);
+                  Raylib.Vector3 cameraUp = new Raylib.Vector3(1, 1, 1);
 
 
-                _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp);
 
-
+                  _
+                  _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp); */
+                Camera2D _camera = new Camera2D();
+                _camera.target = new Raylib.Vector2(player.x, player.y);
+                _camera.zoom = 2;
+                
                 RL.BeginDrawing();
-                RL.BeginMode3D(_camera);
+                RL.BeginMode2D(_camera);
                 _currentScene.Draw();
-                RL.EndMode3D();
+                RL.EndMode2D();
                 RL.EndDrawing();
 
 

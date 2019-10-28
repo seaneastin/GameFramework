@@ -10,6 +10,7 @@ namespace GameFramework
     {
 
         private Direction _facing;
+        public float Speed { get; set; } = .99f;
         
         public Enemy() 
         {
@@ -66,11 +67,12 @@ namespace GameFramework
         {
             if (!MyScene.GetCollision(x, y + 1))
             {
-                y++;
+                yVelocity = Speed;
             }
             else
             {
-                _facing = Direction.North;
+                yVelocity = 0f;
+                _facing = Direction.East;
             }
         }
 
@@ -79,11 +81,12 @@ namespace GameFramework
             if (!MyScene.GetCollision(x, y - 1))
 
             {
-                y--;
+                yVelocity = -Speed;
 
             }
             else
             {
+                yVelocity = 0f;
                 _facing = Direction.South;
             }
             
@@ -93,11 +96,12 @@ namespace GameFramework
         {
             if (!MyScene.GetCollision(x - 1, y))
             {
-                x--;
+                xVelocity = -Speed;
             }
             else
             {
-                _facing = Direction.South;
+                xVelocity = 0f;
+                _facing = Direction.West;
             }
         }
 
@@ -105,11 +109,12 @@ namespace GameFramework
         {
             if (!MyScene.GetCollision(x + 1, y))
             {
-                x++;
+                xVelocity = Speed;
             }
             else
             {
-                _facing = Direction.South;
+                xVelocity = 0f;
+                _facing = Direction.North;
             }
         }
 

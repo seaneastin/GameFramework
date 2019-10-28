@@ -50,5 +50,38 @@ namespace GameFramework
             return new Vector2(lhs.X * number, lhs.Y * number);
         }
 
+
+
+
+        public float Magnitude()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y);
+        }
+
+        public float MagnitudeSqr()
+        {
+            return (X * X + Y * Y);
+        }
+
+        public float Distance(Vector2 other)
+        {
+            float diffX = X - other.X;
+            float diffY = Y - other.Y;
+            return (float)Math.Sqrt(diffX * diffX + diffY * diffY);
+        }
+
+        public void Normalize()
+        {
+            float m = Magnitude();
+            this.X /= m;
+            this.Y /= m;
+        }
+
+        public Vector2 GetNormalised()
+        {
+            return (this / Magnitude());
+        }
+
+
     }
 }

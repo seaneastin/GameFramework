@@ -18,6 +18,7 @@ namespace GameFramework
 
         private Vector2 _location = new Vector2();
 
+        private Vector2 _velocity = new Vector2();
 
         public char Icon { get; set; } = ' ';
         //the image representing the entity on the screen
@@ -47,6 +48,33 @@ namespace GameFramework
                 _location.Y = value;
             }
         }
+
+        //the entity's velocity on the X axis
+        public float xVelocity
+        {
+            get
+            {
+                return _velocity.X;
+            }
+            set
+            {
+                _velocity.X = value;
+            }
+        }
+
+        public float yVelocity
+        {
+            get
+            {
+                return _velocity.Y;
+            }
+            set
+            {
+                _velocity.Y = value;
+            }
+        }
+
+
 
 
         private Scene _scene;
@@ -91,6 +119,7 @@ namespace GameFramework
         }
         public void Update()
         {
+            _location += _velocity;
             OnUpdate?.Invoke();
         }
         public void Draw()
