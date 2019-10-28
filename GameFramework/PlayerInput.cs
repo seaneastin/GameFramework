@@ -8,16 +8,16 @@ using RL = Raylib.Raylib;
 
 namespace GameFramework
 {
-    static class PlayerInput
+    class PlayerInput
     {
         private delegate void KeyEvent(int key);
 
 
 
-        private static KeyEvent OnKeyPress;
+        private KeyEvent OnKeyPress;
 
 
-        public static void AddKeyEvent(Event action, int key)
+        public void AddKeyEvent(Event action, int key)
         {
             void keyPressed(int keyPress)
             {
@@ -29,7 +29,7 @@ namespace GameFramework
             OnKeyPress += keyPressed;
         }
 
-        public static void ReadKey()
+        public void ReadKey()
         {
 
             // ConsoleKey inputKey = Console.ReadKey().Key;

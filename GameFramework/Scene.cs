@@ -84,19 +84,14 @@ namespace GameFramework
 
             foreach (Entity e in _removals)
             {
+                //Remove e from _entities
                 _entities.Remove(e);
             }
             _removals.Clear();
 
-            foreach (Entity e in _removals)
-            {
-                //Remove e from _entities
-            }
-
 
             foreach (Entity e in _entities)
             {
-                e.Update();
                 //position each entity's icon in the collision grid
                 int x = (int)e.x;
                 int y = (int)e.y;

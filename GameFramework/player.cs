@@ -8,25 +8,28 @@ namespace GameFramework
 {
     class Player : Entity
     {
-        public Player() : this('@')
+        private PlayerInput _input = new PlayerInput();
+
+
+
+        public Player() : this('@') //add player image
         {
 
         }
 
         public Player(string imageName) : base('@', imageName)
         {
-            PlayerInput.AddKeyEvent(MoveRight, 100); //D 
-            PlayerInput.AddKeyEvent(MoveLeft, 97); //A
-            PlayerInput.AddKeyEvent(MoveUp, 119); //W
-            PlayerInput.AddKeyEvent(MoveDown, 115); //S
+            _input.AddKeyEvent(MoveRight, 100); //D 
+            _input.AddKeyEvent(MoveLeft, 97); //A
+            _input.AddKeyEvent(MoveUp, 119); //W
+            _input.AddKeyEvent(MoveDown, 115); //S
+            //Add ReadKey to this Entity's OnUpdate
+            OnUpdate += _input.ReadKey;
         }
 
         public Player(char icon) : base(icon)
         {
-            PlayerInput.AddKeyEvent(MoveRight, 100); //D 
-            PlayerInput.AddKeyEvent(MoveLeft, 97); //A
-            PlayerInput.AddKeyEvent(MoveUp, 119); //W
-            PlayerInput.AddKeyEvent(MoveDown, 115); //S
+
         }
 
 
@@ -36,9 +39,13 @@ namespace GameFramework
         {
             if (x + 1> MyScene.SizeX - 1)
             {
-                Room Dest = (Room)MyScene;
-                Travel(Dest.East);
+                if (MyScene is Room)
+                {
+                    Room Dest = (Room)MyScene;
+                    Travel(Dest.East);
+                }
                 x = 0;
+                    
             }
 
 
@@ -56,9 +63,11 @@ namespace GameFramework
         {
             if (x - 1 < 0)
             {
-                Room Dest = (Room)MyScene;
-                Travel(Dest.West);
-                
+                if (MyScene is Room)
+                {
+                    Room Dest = (Room)MyScene;
+                    Travel(Dest.West);
+                }
                 x = MyScene.SizeX - 1;
             }
 

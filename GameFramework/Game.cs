@@ -15,13 +15,26 @@ namespace GameFramework
         public static readonly int SizeY = 16;
         //whetehr or not the Game should finish running and exit
         public static bool Gameover = false;
+        private Camera3D _camera;
 
 
         private static Scene _currentScene;
+
+        private static Scene _nextScene;
         public Game()
         {
-            RL.InitWindow(640, 480, "Game");
+            RL.InitWindow(640, 480, "RPG Game");
             RL.SetTargetFPS(15);
+
+
+            Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
+            Raylib.Vector3 cameraTarget = new Raylib.Vector3(0, 0, 0);
+            Raylib.Vector3 cameraUp = new Raylib.Vector3(0, 0, 1);
+
+
+
+
+            _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp);
         }
 
 
@@ -37,8 +50,9 @@ namespace GameFramework
             enemy.y = 3;
 
             startingRoom.North = otherRoom;
-           
-            otherRoom.South = otherRoom;
+            CurrentScene = startingRoom;
+            //otherRoom.South = otherRoom;
+
             //startingRoom.South = otherRoom;
             //startingRoom.West = otherRoom;
             //startingRoom.East = otherRoom;
@@ -101,7 +115,7 @@ namespace GameFramework
             startingRoom.AddEntity(player);
             player.x = 1;
             player.y = 1;
-            _currentScene = startingRoom;
+            
 
         }
 
@@ -113,19 +127,38 @@ namespace GameFramework
        //     PlayerInput.AddKeyEvent(Quit, ConsoleKey.Escape); (no longer needed)
 
 
-            _currentScene.Start();
 
             //Loop until the game is over
             while (!Gameover && !RL.WindowShouldClose())
             {
+                //Start the Scene if needed
+                if (_currentScene != _nextScene)
+                {
+                    _currentScene = _nextScene;
+                    _currentScene.Start();
+                }
+
+                //update the active Scene
                 _currentScene.Update();
+
+                int mouseX = (RL.GetMouseX() + 320) / 2;
+                int mouseY = (RL.GetMouseY() - 240) / 4;
+
+                Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
+                Raylib.Vector3 cameraTarget = new Raylib.Vector3(mouseX, 0, mouseY);
+                Raylib.Vector3 cameraUp = new Raylib.Vector3(0, 0, 1);
+
+
+
+
+                _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp);
 
 
                 RL.BeginDrawing();
+                RL.BeginMode3D(_camera);
                 _currentScene.Draw();
+                RL.EndMode3D();
                 RL.EndDrawing();
-
-                PlayerInput.ReadKey();
 
 
             }
@@ -135,11 +168,10 @@ namespace GameFramework
             get
             {
                 return _currentScene;
-                _currentScene.Start();
             }
             set
             {
-                _currentScene = value;
+                _nextScene = value;
             }
         }
         public void Quit()
