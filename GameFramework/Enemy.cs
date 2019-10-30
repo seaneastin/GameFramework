@@ -10,7 +10,7 @@ namespace GameFramework
     {
 
         private Direction _facing;
-        public float Speed { get; set; } = .99f;
+        public float Speed { get; set; } = .30f;
         
         public Enemy() 
         {
@@ -21,6 +21,7 @@ namespace GameFramework
         {
             _facing = Direction.North;
             OnUpdate += Move;
+            OnUpdate += TouchPlayer;
         }
 
         private void TouchPlayer()

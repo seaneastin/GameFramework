@@ -27,7 +27,10 @@ namespace GameFramework
             W = w;
         }
 
-
+        public override string ToString()
+        {
+            return "{ " + X + ", " + Y + "," + Z + "," + W + "}";
+        }
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
         {
             return new Vector4(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z, lhs.W + rhs.W);

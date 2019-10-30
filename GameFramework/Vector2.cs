@@ -24,6 +24,12 @@ namespace GameFramework
         }
 
 
+        public override string ToString()
+        {
+            return "{ " + X + ", " + Y + "}";
+        }
+
+
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
             return new Vector2(lhs.X + rhs.X, lhs.Y + rhs.Y);
@@ -82,6 +88,21 @@ namespace GameFramework
             return (this / Magnitude());
         }
 
+
+        public float DotProduct(Vector2 other)
+        {
+            return ((X * other.X) + (Y * other.Y));
+        }
+
+        public float AngleBetween(Vector2 other)
+        {
+            Vector2 a = GetNormalised();
+            Vector2 b = other.GetNormalised();
+
+            float d = a.DotProduct(b);
+
+            return (float)Math.Acos(d);
+        }
 
     }
 }

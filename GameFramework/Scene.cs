@@ -15,6 +15,8 @@ namespace GameFramework
 
         private List<Entity> _entities = new List<Entity>();
         private List<Entity> _removals = new List<Entity>();
+        //the list of entities to add to the scene
+        private List<Entity> _additions = new List<Entity>();
         private int _sizeX;
         private int _sizeY;
         private bool[,] _collision;
@@ -81,6 +83,12 @@ namespace GameFramework
                 Console.WriteLine();
             }
 
+            foreach (Entity e in _additions)
+            {
+                _entities.Add(e);
+            }
+            _additions.Clear();
+
 
             foreach (Entity e in _removals)
             {
@@ -119,6 +127,11 @@ namespace GameFramework
             OnDraw?.Invoke();
 
             //clear the screen
+
+
+
+
+
             Console.Clear();
             RL.ClearBackground(Color.DARKBROWN);
 
@@ -157,7 +170,7 @@ namespace GameFramework
         //adds an Entity to the Scene
         public void AddEntity(Entity entity)
         {
-            _entities.Add(entity);
+            _additions.Add(entity);
             entity.MyScene = this;
         }
 

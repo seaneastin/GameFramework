@@ -25,8 +25,8 @@ namespace GameFramework
         public Game()
         {
             RL.InitWindow(640, 480, "RPG Game");
-            RL.SetTargetFPS(15);
-
+            //   RL.SetTargetFPS(15);
+            RL.SetTargetFPS(60);
 
             Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
             Raylib.Vector3 cameraTarget = new Raylib.Vector3(0, 0, 0);
@@ -154,11 +154,10 @@ namespace GameFramework
                   _
                   _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp); */
                 Camera2D _camera = new Camera2D();
-                _camera.target = new Raylib.Vector2(player.x, player.y);
-                _camera.zoom = 2;
-                
+                //_camera.target = new Raylib.Vector2(player.x, player.y);
+                //_camera.zoom = 10;
                 RL.BeginDrawing();
-                RL.BeginMode2D(_camera);
+                //RL.BeginMode2D(_camera);
                 _currentScene.Draw();
                 RL.EndMode2D();
                 RL.EndDrawing();
