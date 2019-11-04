@@ -46,6 +46,8 @@ namespace GameFramework
 
             public void Move()
         {
+            Rotation = 5f;
+            //Scale = 2f;
             switch (_facing)
             {
                 case Direction.North:

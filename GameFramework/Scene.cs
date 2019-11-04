@@ -156,11 +156,12 @@ namespace GameFramework
                     Console.Write(display[j, i]);
                     foreach (Entity e in _tracking[j, i])
                     {
-                        RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
+                        //RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
                         Texture2D texture = e.Sprite;
                         Raylib.Vector2 position = new Raylib.Vector2(e.x * Game.SizeX, e.y * Game.SizeY);
                         float rotation = 0.0f;
                         float scale = e.Scale;
+                        float roation = e.Rotation;
                         RL.DrawTextureEx(texture , position , rotation , scale , Color.WHITE);
                     }
                 }

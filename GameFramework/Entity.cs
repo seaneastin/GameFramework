@@ -96,7 +96,17 @@ namespace GameFramework
                 _scale = value;
             }
         }
-
+        public float Rotation
+        {
+            get
+            {
+               return  (float)Math.Atan2(_rotation.m12, _rotation.m11);
+            }
+            set
+            {
+                _rotation.SetRotateZ(value);
+            }
+        }
 
 
 
