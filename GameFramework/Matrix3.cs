@@ -156,7 +156,7 @@ namespace GameFramework
 
         public void Translate(float x, float y, float z)
         {
-            m13 += x; m23 += y; m33 = z;
+            m13 += x; m23 += y; m33 += z;
         }
 
         public void Set(Matrix3 scaled)
@@ -172,7 +172,7 @@ namespace GameFramework
             return new Vector3(
              lhs.m11 * rhs.X + lhs.m12 * rhs.Y + lhs.m13 * rhs.Z,
              lhs.m21 * rhs.X + lhs.m22 * rhs.Y + lhs.m23 * rhs.Z,
-             lhs.m31 * rhs.X + lhs.m32 * rhs.Y + lhs.m32 * rhs.Z);
+             lhs.m31 * rhs.X + lhs.m32 * rhs.Y + lhs.m33 * rhs.Z);
                 
                 
                 

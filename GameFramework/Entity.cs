@@ -143,7 +143,7 @@ namespace GameFramework
         public void Update()
         {
             // _location += _velocity;
-            Matrix3 transform = _translation * _rotation;
+            Matrix3 transform = _translation;
             _location = transform * _location;
             OnUpdate?.Invoke();
         }
