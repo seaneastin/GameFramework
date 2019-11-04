@@ -8,7 +8,7 @@ namespace GameFramework
 {
     class Vector3
     {
-        float X, Y, Z;
+        public float X, Y, Z;
 
 
         public Vector3()

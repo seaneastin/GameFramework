@@ -10,9 +10,9 @@ namespace GameFramework
     {
         static void Main(string[] args)
         {
-            Examples();
-            //Game game = new Game();
-            //game.Run();
+       //     Examples();
+            Game game = new Game();
+            game.Run();
 
             
 

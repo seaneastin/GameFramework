@@ -8,7 +8,7 @@ namespace GameFramework
 {
     class Vector4
     {
-        float X, Y, Z, W;
+        public float X, Y, Z, W;
 
 
         public Vector4()
@@ -60,7 +60,7 @@ namespace GameFramework
 
         public float Magnitude()
         {
-            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z * W);
         }
 
         public float MagnitudeSqr()
@@ -82,13 +82,21 @@ namespace GameFramework
             this.X /= m;
             this.Y /= m;
             this.Z /= m;
+            this.W /= m;
         }
 
         public Vector4 GetNormalised()
         {
             return (this / Magnitude());
         }
-
+        public float DotProduct(Vector4 other)
+        {
+            return ((X * other.X) + (Y * other.Y) + (Z * other.Z) + (W * other.W));
+        }
+        public Vector4 CrossProduct(Vector4 other)
+        {
+            return new Vector4(Y * other.Z - Z * other.Y, Z * other.X - X * other.Z, X * other.Y - Y * other.X, 0);
+        }
 
 
     }

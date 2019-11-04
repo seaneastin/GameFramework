@@ -16,9 +16,16 @@ namespace GameFramework
         public Event OnUpdate;
         public Event OnDraw;
 
-        private Vector2 _location = new Vector2();
+        private Vector3 _location = new Vector3(0, 0, 1); //set z to  1 for it to be a point set it to 0 to be a vector
 
-        private Vector2 _velocity = new Vector2();
+        //private Vector2 _velocity = new Vector2();
+        private Matrix3 _transform = new Matrix3();
+        
+        private Matrix3 _translation = new Matrix3();
+        private Matrix3 _rotation = new Matrix3();
+        //private Matrix3 _scale = new Matrix3();
+        private float _scale = 1;
+
 
         public char Icon { get; set; } = ' ';
         //the image representing the entity on the screen
@@ -54,11 +61,13 @@ namespace GameFramework
         {
             get
             {
-                return _velocity.X;
+                //return _velocity.X;
+                return _translation.m13;
             }
             set
             {
-                _velocity.X = value;
+                //_velocity.X = value;
+                _translation.SetTranslation(value, yVelocity, 1);
             }
         }
 
@@ -66,11 +75,25 @@ namespace GameFramework
         {
             get
             {
-                return _velocity.Y;
+                //return _velocity.Y;
+                return _translation.m23;
             }
             set
             {
-                _velocity.Y = value;
+                //_velocity.Y = value;
+                _translation.SetTranslation(xVelocity, value, 1);
+            }
+        }
+
+        public float Scale
+        {
+            get
+            {
+                return _scale;
+            }
+            set
+            {
+                _scale = value;
             }
         }
 
@@ -119,7 +142,9 @@ namespace GameFramework
         }
         public void Update()
         {
-            _location += _velocity;
+            // _location += _velocity;
+            Matrix3 transform = _translation * _rotation;
+            _location = transform * _location;
             OnUpdate?.Invoke();
         }
         public void Draw()
