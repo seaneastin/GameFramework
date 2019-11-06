@@ -25,6 +25,8 @@ namespace GameFramework
             _input.AddKeyEvent(MoveDown, 115); //S
             //Add ReadKey to this Entity's OnUpdate
             OnUpdate += _input.ReadKey;
+            OnUpdate += rotation;
+            OnUpdate += Orbit;
         }
 
         public Player(char icon) : base(icon)
@@ -56,6 +58,14 @@ namespace GameFramework
             }
         }
 
+
+        private void Orbit()
+        {
+            foreach (Entity child in _children)
+            {
+                child.Rotate(1f);
+            }
+        }
 
 
 
@@ -136,6 +146,11 @@ namespace GameFramework
             MyScene.RemoveEntity(this);
             destination.AddEntity(this);
             Game.CurrentScene = destination;
+        }
+
+        public void rotation()
+        {
+          //  Rotate(.05f);
         }
 
     }

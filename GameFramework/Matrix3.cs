@@ -28,6 +28,7 @@ namespace GameFramework
             this.m31 = m31; this.m32 = m32; this.m33 = m33;
         }
 
+
         public Matrix3()
         {
             m11 = 1; m12 = 0; m13 = 0;
@@ -70,10 +71,12 @@ namespace GameFramework
 
         }
 
-        public static Vector2 operator *(Matrix3 lhs, Vector2 rhs)
+        public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
         {
-            return new Vector2(lhs.m11 * rhs.X + lhs.m12 * rhs.Y,
-                lhs.m21 + rhs.X + lhs.m22 * rhs.Y);      
+            return new Vector3(
+                lhs.m11 * rhs.X + lhs.m12 * rhs.Y + lhs.m13 * rhs.Z,
+                lhs.m21 * rhs.X + lhs.m22 * rhs.Y + lhs.m23 * rhs.Z,
+                lhs.m31 * rhs.X + lhs.m32 * rhs.Y + lhs.m33 * rhs.Z);      
         }
 
 
@@ -98,14 +101,21 @@ namespace GameFramework
 
             Set(this * m);
         }
+        public void Scale(float X, float Y, float Z)
+        {
+            Matrix3 m = new Matrix3();
+            m.SetScaled(X, Y, Z);
+
+            Set(this * m);
+        }
 
 
 
         public void SetRotateX(double radians)
         {
             Set(1, 0, 0,
-                0, (float)Math.Cos(radians), (float)Math.Sin(radians),
-                0, (float)-Math.Sin(radians), (float)Math.Cos(radians));
+                0, (float)Math.Cos(radians), (float)-Math.Sin(radians),
+                0, (float)Math.Sin(radians), (float)Math.Cos(radians));
         }
 
         public void RotateX(double radians)
@@ -115,9 +125,13 @@ namespace GameFramework
             Set(this * m);
         }
 
+        
+
         public void SetRotateY(double radians)
         {
-            Set((float)Math.Cos(radians), 0, (float)Math.Sin(radians), 0, 1, 0, (float)-Math.Sin(radians), 0, (float)Math.Cos(radians));
+            Set((float)Math.Cos(radians), 0, (float)Math.Sin(radians),
+                0, 1, 0,
+                (float)-Math.Sin(radians), 0, (float)Math.Cos(radians));
         }
 
         public void RotateY(double radians)
@@ -129,9 +143,16 @@ namespace GameFramework
 
         public void SetRotateZ(double radians)
         {
-            Set((float)Math.Cos(radians), 0, (float)Math.Sin(radians), 0, 0, 1, 0, 0, (float)-Math.Cos(radians));
+            Set((float)Math.Cos(radians),  (float)-Math.Sin(radians), 0,
+                (float)Math.Sin(radians), (float)Math.Cos(radians), 0,
+                0, 0, 1);
         }
-
+        public void RotateZ(double radians)
+        {
+            Matrix3 m = new Matrix3();
+            m.SetRotateZ(radians);
+            Set(this * m);
+        }
 
         public void SetEuler(float pitch, float yaw, float roll)
         {
@@ -161,22 +182,9 @@ namespace GameFramework
 
         public void Set(Matrix3 scaled)
         {
-            scaled.m11 = m11; scaled.m12 = m12; scaled.m13 = m13;
-            scaled.m21 = m21; scaled.m22 = m22; scaled.m23 = m23;
-            scaled.m31 = m31; scaled.m32 = m32; scaled.m33 = m33;
-        }
-
-
-        public static Vector3 operator *(Matrix3 lhs, Vector3 rhs)
-        {
-            return new Vector3(
-             lhs.m11 * rhs.X + lhs.m12 * rhs.Y + lhs.m13 * rhs.Z,
-             lhs.m21 * rhs.X + lhs.m22 * rhs.Y + lhs.m23 * rhs.Z,
-             lhs.m31 * rhs.X + lhs.m32 * rhs.Y + lhs.m33 * rhs.Z);
-                
-                
-                
-                
+            m11 = scaled.m11; m12 = scaled.m12; m13 = scaled.m13;
+            m21 = scaled.m21; m22 = scaled.m22; m23 = scaled.m23;
+            m31 = scaled.m31; m32 = scaled.m32; m33 = scaled.m33;
         }
            
 

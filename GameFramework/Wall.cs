@@ -12,8 +12,16 @@ namespace GameFramework
         {
             x = X;
             y = Y;
+            OriginX = 0;
+            OriginY = 0;
             Solid = true;
             Icon = '█';
+            OnUpdate += rotation;
         }
+        public void rotation()
+        {
+            Rotate(.5f);
+        }
+
     }
 }

@@ -101,18 +101,21 @@ namespace GameFramework
             foreach (Entity e in _entities)
             {
                 //position each entity's icon in the collision grid
-                int x = (int)e.x;
-                int y = (int)e.y;
+                int x = (int)e.XAbsolute;
+                int y = (int)e.YAbsolute;
                 if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
                     _tracking[x, y].Add(e);
 
-                    if (!_collision[x,y])
+                    if (!_collision[x, y])
                     {
                         _collision[x, y] = e.Solid;
                     }
                 }
             }
+
+
+
             foreach (Entity e in _entities)
             {
                 //Call the Entity's Update events
@@ -136,20 +139,20 @@ namespace GameFramework
             RL.ClearBackground(Color.DARKBROWN);
 
 
-            char[,] display = new char[_sizeX, _sizeY ];
+            char[,] display = new char[_sizeX, _sizeY];
 
             foreach (Entity e in _entities)
             {
-                int x = (int)e.x;
-                int y = (int)e.y;
+                int x = (int)e.XAbsolute;
+                int y = (int)e.YAbsolute;
                 //posistion each Entity's icon in the display
                 if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
-                    display[x,y] = e.Icon;
+                    display[x, y] = e.Icon;
                 }
                 //e.Draw();
             }
-            for (int i = 0; i < _sizeY; i++) 
+            for (int i = 0; i < _sizeY; i++)
             {
                 for (int j = 0; j < _sizeX; j++)
                 {
@@ -158,15 +161,15 @@ namespace GameFramework
                     {
                         //RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
                         Texture2D texture = e.Sprite;
-                        Raylib.Vector2 position = new Raylib.Vector2(e.x * Game.SizeX, e.y * Game.SizeY);
-                        float rotation = 0.0f;
-                        float scale = e.Scale;
-                        float roation = e.Rotation;
-                        RL.DrawTextureEx(texture , position , rotation , scale , Color.WHITE);
+                        Raylib.Vector2 position = new Raylib.Vector2(e.XAbsolute * Game.SizeX - e.OriginX, e.YAbsolute * Game.SizeY - e.OriginY);
+                        float scale = e.Size;
+                        float rotation = e.Rotation * (float)(180.0f/Math.PI);
+                        RL.DrawTextureEx(texture, position, rotation, scale, Color.WHITE);
                     }
                 }
                 Console.WriteLine();
             }
+
             foreach (Entity e in _entities)
             {
                 e.Draw();
@@ -196,7 +199,7 @@ namespace GameFramework
             {
                 RemoveEntity(e);
             }
- 
+
         }
         //returns whether there is a solid entity at the point
         public bool GetCollision(float x, float y)

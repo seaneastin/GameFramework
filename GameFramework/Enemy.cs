@@ -46,7 +46,7 @@ namespace GameFramework
 
             public void Move()
         {
-            Rotation = 5f;
+           // Rotate(.05f);
             //Scale = 2f;
             switch (_facing)
             {

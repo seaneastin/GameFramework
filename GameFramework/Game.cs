@@ -25,7 +25,7 @@ namespace GameFramework
         public Game()
         {
             RL.InitWindow(640, 480, "RPG Game");
-            RL.SetTargetFPS(15);
+            RL.SetTargetFPS(30);
             //RL.SetTargetFPS(60);
 
             Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
@@ -116,7 +116,24 @@ namespace GameFramework
             startingRoom.AddEntity(player);
             player.x = 1;
             player.y = 1;
-            
+            // Entity sword = new Entity('/', "imges/ezgif/tile137.png");
+            Entity sword = new Entity('/', "imges/ezgif/tile012.png");
+            player.AddChild(sword);
+            sword.x++;
+            startingRoom.AddEntity(sword);
+            Entity sword2 = new Entity('/', "imges/ezgif/tile012.png");
+            player.AddChild(sword2);
+            sword2.x--;
+            startingRoom.AddEntity(sword2);
+            Entity sword3 = new Entity('/', "imges/ezgif/tile012.png");
+            player.AddChild(sword3);
+            sword3.y++;
+            startingRoom.AddEntity(sword3);
+            Entity sword4 = new Entity('/', "imges/ezgif/tile012.png");
+            player.AddChild(sword4);
+            sword4.y--;
+            startingRoom.AddEntity(sword4);
+
 
         }
 
@@ -154,10 +171,10 @@ namespace GameFramework
                   _
                   _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp); */
                 Camera2D _camera = new Camera2D();
-                //_camera.target = new Raylib.Vector2(player.x, player.y);
-                //_camera.zoom = 10;
+                //_camera.target = new Raylib.Vector2(-5, 0);
+                _camera.zoom = 1;
                 RL.BeginDrawing();
-                //RL.BeginMode2D(_camera);
+                RL.BeginMode2D(_camera);
                 _currentScene.Draw();
                 RL.EndMode2D();
                 RL.EndDrawing();
