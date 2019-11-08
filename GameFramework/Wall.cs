@@ -20,7 +20,7 @@ namespace GameFramework
         }
         public void rotation()
         {
-            Rotate(.5f);
+           // Rotate(.5f);
         }
 
     }

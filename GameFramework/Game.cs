@@ -27,7 +27,7 @@ namespace GameFramework
             RL.InitWindow(640, 480, "RPG Game");
             RL.SetTargetFPS(30);
             //RL.SetTargetFPS(60);
-
+            //RL.SetTargetFPS(0);
             Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
             Raylib.Vector3 cameraTarget = new Raylib.Vector3(0, 0, 0);
             Raylib.Vector3 cameraUp = new Raylib.Vector3(0, 0, 1);

@@ -63,8 +63,9 @@ namespace GameFramework
         {
             foreach (Entity child in _children)
             {
-                child.Rotate(1f);
+                //child.Rotate(1f);
             }
+            Rotate(1.0f);
         }
 
 
