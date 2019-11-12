@@ -9,9 +9,10 @@ namespace GameFramework
     class Player : Entity
     {
         private PlayerInput _input = new PlayerInput();
-
-
-
+        private Entity _sword = new Entity('/', "imges/ezgif/tile012.png");
+        private Entity _sword2 = new Entity('/', "imges/ezgif/tile012.png");
+        private Entity _sword3 = new Entity('/', "imges/ezgif/tile012.png");
+        private Entity _sword4 = new Entity('/', "imges/ezgif/tile012.png");
         public Player() : this('@') //add player image
         {
 
@@ -23,10 +24,14 @@ namespace GameFramework
             _input.AddKeyEvent(MoveLeft, 97); //A
             _input.AddKeyEvent(MoveUp, 119); //W
             _input.AddKeyEvent(MoveDown, 115); //S
+            _input.AddKeyEvent(detachSword, 69); //nice
+            _input.AddKeyEvent(AttachSword, );
             //Add ReadKey to this Entity's OnUpdate
             OnUpdate += _input.ReadKey;
             OnUpdate += rotation;
             OnUpdate += Orbit;
+            Onstart += CreateSword;
+            Onstart += AttachSword;
         }
 
         public Player(char icon) : base(icon)
@@ -63,11 +68,56 @@ namespace GameFramework
         {
             foreach (Entity child in _children)
             {
-                //child.Rotate(1f);
+                child.Rotate(.4f);
             }
-            Rotate(1.0f);
+            Rotate(.4f);
         }
 
+
+        private void CreateSword()
+        {
+            
+            AddChild(_sword);
+            
+            AddChild(_sword2);
+            
+            AddChild(_sword3);
+            
+            AddChild(_sword4);
+        }
+
+        private void AttachSword()
+        {
+            _sword.x = .5f;
+            //_sword.x++;
+            MyScene.AddEntity(_sword);
+
+
+            _sword2.x = -.5f;
+            //_sword2.x--; 
+            MyScene.AddEntity(_sword2);
+
+            _sword3.y = .5f;
+            //_sword3.y++;
+            MyScene.AddEntity(_sword3);
+
+
+
+            _sword4.y = -.5f;
+            //_sword4.y--;
+            MyScene.AddEntity(_sword4);
+        }
+
+
+
+
+        private void detachSword()
+        {
+            RemoveChild(_sword);
+            RemoveChild(_sword2);
+            RemoveChild(_sword3);
+            RemoveChild(_sword4);
+        }
 
 
         private void MoveLeft()
@@ -153,6 +203,8 @@ namespace GameFramework
         {
           //  Rotate(.05f);
         }
+
+
 
     }
 }

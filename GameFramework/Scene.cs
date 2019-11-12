@@ -21,6 +21,7 @@ namespace GameFramework
         private int _sizeY;
         private bool[,] _collision;
         private List<Entity>[,] _tracking;
+        private bool _started = false;
 
 
         public Event Onstart;
@@ -57,6 +58,15 @@ namespace GameFramework
             }
         }
 
+
+        public bool Started
+        {
+            get
+            {
+                return _started;
+            }
+        }
+
         public void Start()
         {
             Onstart?.Invoke();
@@ -65,6 +75,7 @@ namespace GameFramework
             {
                 e.start();
             }
+            _started = true;
         }
         public void Update()
         {
@@ -74,6 +85,9 @@ namespace GameFramework
             //Create the collision gri
 
             //clear the tracking grid
+
+
+
             for (int y = 0; y < _sizeY; y++)
             {
                 for (int x = 0; x < _sizeX; x++)
@@ -101,8 +115,8 @@ namespace GameFramework
             foreach (Entity e in _entities)
             {
                 //position each entity's icon in the collision grid
-                int x = (int)e.XAbsolute;
-                int y = (int)e.YAbsolute;
+                int x = (int)Math.Round(e.XAbsolute);
+                int y = (int)Math.Round(e.YAbsolute);
                 if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
                     _tracking[x, y].Add(e);
@@ -143,8 +157,8 @@ namespace GameFramework
 
             foreach (Entity e in _entities)
             {
-                int x = (int)e.XAbsolute;
-                int y = (int)e.YAbsolute;
+                int x = (int)Math.Round(e.XAbsolute);
+                int y = (int)Math.Round(e.YAbsolute);
                 //posistion each Entity's icon in the display
                 if (x >= 0 && x < _sizeX && y >= 0 && y < _sizeY)
                 {
@@ -165,9 +179,15 @@ namespace GameFramework
                         }
                         //RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
                         Texture2D texture = e.Sprite.Texture;
-                        Raylib.Vector2 position = new Raylib.Vector2(e.XAbsolute * Game.SizeX - e.OriginX, e.YAbsolute * Game.SizeY - e.OriginY);
-                        float scale = e.Size;
+                        //position
+                        float positionx = e.Sprite.XAbsolute * Game.UnitSize.X;
+                        float positiony = e.Sprite.YAbsolute * Game.UnitSize.Y;
+                        Raylib.Vector2 position = new Raylib.Vector2(positionx , positiony );
+                        //scale
+                        float scale = e.Sprite.Size;
+                        //rotation
                         float rotation = e.Rotation * (float)(180.0f/Math.PI);
+                        //Draw
                         RL.DrawTextureEx(texture, position, rotation, scale, Color.WHITE);
                     }
                 }
@@ -183,6 +203,10 @@ namespace GameFramework
         //adds an Entity to the Scene
         public void AddEntity(Entity entity)
         {
+            if (_additions.Contains(entity))
+            {
+                return;
+            }
             _additions.Add(entity);
             entity.MyScene = this;
         }
@@ -190,6 +214,10 @@ namespace GameFramework
         //removes an entity form the scene
         public void RemoveEntity(Entity entity)
         {
+            if (_removals.Contains(entity))
+            {
+                return;
+            }
             _removals.Add(entity);
             entity.MyScene = null;
         }
@@ -214,19 +242,22 @@ namespace GameFramework
 
                 return _collision[(int)x, (int)y];
             }
+            //this tells whether or not outside of the level has collision
             else
             {
-                return false;
+                return true;
             }
         }
 
         //Returns the List of ENtities at a specific point
         public List<Entity> GetEntities(float x, float y)
         {
+            int checkX = (int)Math.Round(x);
+            int checkY = (int)Math.Round(y);
             //Ensure the point is within the Scene
-            if (x >= 0 && y >= 0 && x < _sizeX && y < _sizeY)
+            if (checkX >= 0 && checkY >= 0 && x < _sizeX && checkY < _sizeY)
             {
-                return _tracking[(int)x, (int)y];
+                return _tracking[checkX, checkY];
             }
 
             else

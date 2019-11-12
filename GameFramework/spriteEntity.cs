@@ -16,12 +16,33 @@ namespace GameFramework
 
         public float Width
         {
-            get { return _texture.width; }
+            get { return _texture.width / Game.UnitSize.X; }
         }
 
         public float Height
         {
-            get { return _texture.height; }
+            get { return _texture.height / Game.UnitSize.Y; }
+        }
+
+
+        public float Top
+        {
+            get { return YAbsolute; }
+        }
+
+        public float Bottom
+        {
+            get { return YAbsolute + Height;  }
+        }
+
+        public float Left
+        {
+            get { return XAbsolute; }
+        }
+
+        public float right
+        {
+            get { return XAbsolute + Width; }
         }
 
         public Texture2D Texture
@@ -38,6 +59,8 @@ namespace GameFramework
         {
             _image = RL.LoadImage(path);
             _texture = RL.LoadTextureFromImage(_image);
+            x = -Width / 2;
+            y = -Height / 2;
         }
     }
 }

@@ -218,7 +218,10 @@ namespace GameFramework
         public void AddChild(Entity child)
         {
             //Make sure the child doesn't already have a parent
-            Debug.Assert(child._parent == null);
+            if ( child._parent != null)
+            {
+                return;
+            }
             //Assign this Entity as the child's parent
             child._parent = this;
             //Add child to collection
@@ -231,6 +234,7 @@ namespace GameFramework
             if (isMyChild)
             {
                 child._parent = null;
+                child._localTransform = child._globalTransform;
             }
         }
 

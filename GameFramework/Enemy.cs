@@ -68,7 +68,7 @@ namespace GameFramework
 
         public void MoveDown()
         {
-            if (!MyScene.GetCollision(x, y + 1))
+            if (!MyScene.GetCollision(XAbsolute, Sprite.Bottom + Speed))
             {
                 yVelocity = Speed;
             }
@@ -81,7 +81,7 @@ namespace GameFramework
 
         public void MoveUP()
         {
-            if (!MyScene.GetCollision(x, y - 1))
+            if (!MyScene.GetCollision(XAbsolute, Sprite.Top - Speed))
 
             {
                 yVelocity = -Speed;
@@ -97,7 +97,7 @@ namespace GameFramework
 
         public void MoveLeft()
         {
-            if (!MyScene.GetCollision(x - 1, y))
+            if (!MyScene.GetCollision(YAbsolute, Sprite.Left - Speed))
             {
                 xVelocity = -Speed;
             }
@@ -110,7 +110,7 @@ namespace GameFramework
 
         public void MoveRight()
         {
-            if (!MyScene.GetCollision(x + 1, y))
+            if (!MyScene.GetCollision(YAbsolute, Sprite.right + Speed))
             {
                 xVelocity = Speed;
             }
