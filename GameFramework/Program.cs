@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace GameFramework
 {
     class Program
@@ -82,6 +83,11 @@ namespace GameFramework
 
             Console.ReadKey();
             return;
+        }
+
+
+        static void AABBTEST()
+        {
         }
     }
 }

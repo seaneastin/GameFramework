@@ -10,11 +10,12 @@ using System.Diagnostics;
 namespace GameFramework
 {
     delegate void Event();
+    delegate void UpdateEvent(float deltaTime);
 
     class Entity
     {
         public Event Onstart;
-        public Event OnUpdate;
+        public UpdateEvent OnUpdate;
         public Event OnDraw;
 
         protected Entity _parent = null;
@@ -31,6 +32,26 @@ namespace GameFramework
         //private float _scale = 1;
         private Matrix3 _localTransform = new Matrix3();
         private Matrix3 _globalTransform = new Matrix3();
+
+
+
+        public AABB Hitbox { get; set; }
+
+
+        //whether this entity's start method has been called
+        private bool _started = false;
+  
+        
+
+
+
+        public bool Started
+        {
+            get
+            {
+                return _started;
+            }
+        }
 
 
 
@@ -181,11 +202,11 @@ namespace GameFramework
 
         public Entity()
         {
-
+            Hitbox = new AABB(new Vector3(XAbsolute - 0.5f, YAbsolute - 0.5f, 1), new Vector3(YAbsolute + 0.5f, YAbsolute + 0.5f, 1));
         }
 
 
-        public Entity(char icon)
+        public Entity(char icon) : this()
         {
             Icon = icon;
         }
@@ -200,7 +221,7 @@ namespace GameFramework
             OnUpdate += rotateall;
             AddChild(Sprite);
         }
-        public void rotateall()
+        public void rotateall(float deltaTime)
         {
              //Rotate(9000f);
         }
@@ -265,24 +286,41 @@ namespace GameFramework
             UpdateTransform();
 
         }
+        //Find the distance between this Entity and anouther
+        public float GetDistance(Entity other)
+        {
+            Vector3 position = new Vector3(XAbsolute, YAbsolute, 1);
+            Vector3 otherPosition = new Vector3(other.XAbsolute, other.YAbsolute, 1);
+            return position.Distance(otherPosition);
+        }
+
 
 
         public void start()
         {
-            Onstart?.Invoke();
+                if (!Started)
+                {
+                    Onstart?.Invoke();
+                    _started = true;
+                
+                }
+            
         }
-        public void Update()
+        public void Update(float deltaTime)
         {
             // _location += _velocity;
             //  Matrix3 transform = _translation;
             // _location = transform * _location;
             x += _velocity.X;
             y += _velocity.Y;
-            OnUpdate?.Invoke();
+            OnUpdate?.Invoke(deltaTime);
+            Hitbox.Move(new Vector3(XAbsolute, YAbsolute, 1));
         }
         public void Draw()
         {
             OnDraw?.Invoke();
+            Hitbox.Draw(Raylib.Color.RED);
+            
         }
 
     }

@@ -29,7 +29,7 @@ namespace GameFramework
             OnKeyPress += keyPressed;
         }
 
-        public void ReadKey()
+        public void ReadKey(float deltaTime)
         {
 
             // ConsoleKey inputKey = Console.ReadKey().Key;

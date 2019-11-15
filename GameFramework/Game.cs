@@ -22,16 +22,19 @@ namespace GameFramework
         private static Scene _currentScene;
 
         private static Scene _nextScene;
+
+        //the timer for the entire game
+        private Timer _gameTimer;
         public Game()
         {
-            RL.InitWindow(640, 480, "RPG Game");
+            RL.InitWindow(1280, 760, "RPG Game");
             RL.SetTargetFPS(30);
             //RL.SetTargetFPS(60);
             //RL.SetTargetFPS(0);
             Raylib.Vector3 cameraPosition = new Raylib.Vector3(-10, -10, -10);
             Raylib.Vector3 cameraTarget = new Raylib.Vector3(0, 0, 0);
             Raylib.Vector3 cameraUp = new Raylib.Vector3(0, 0, 1);
-
+            _gameTimer = new Timer();
 
 
 
@@ -148,7 +151,7 @@ namespace GameFramework
                     
                 }
 
-                _currentScene.Update();
+                _currentScene.Update(_gameTimer.GetDeltaTime());
 
                 if (!_currentScene.Started)
                 {
@@ -171,7 +174,7 @@ namespace GameFramework
                   _camera = new Camera3D(cameraPosition, cameraTarget, cameraUp); */
                 Camera2D _camera = new Camera2D();
                 //_camera.target = new Raylib.Vector2(-5, 0);
-                _camera.zoom = 1;
+                _camera.zoom = 3;
                 RL.BeginDrawing();
                 RL.BeginMode2D(_camera);
                 _currentScene.Draw();

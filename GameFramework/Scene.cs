@@ -25,7 +25,7 @@ namespace GameFramework
 
 
         public Event Onstart;
-        public Event OnUpdate;
+        public UpdateEvent OnUpdate;
         public Event OnDraw;
 
         public Scene() : this(6, 6)
@@ -77,11 +77,11 @@ namespace GameFramework
             }
             _started = true;
         }
-        public void Update()
+        public void Update(float deltatime)
         {
             //clear the collision grid
 
-            OnUpdate?.Invoke();
+            OnUpdate?.Invoke(deltatime);
             //Create the collision gri
 
             //clear the tracking grid
@@ -133,7 +133,7 @@ namespace GameFramework
             foreach (Entity e in _entities)
             {
                 //Call the Entity's Update events
-                e.Update();
+                e.Update(deltatime);
             }
         }
 
@@ -180,8 +180,8 @@ namespace GameFramework
                         //RL.DrawTexture(e.Sprite, (int)e.x * 16, (int)e.y * 16, Color.WHITE);
                         Texture2D texture = e.Sprite.Texture;
                         //position
-                        float positionx = e.Sprite.XAbsolute * Game.UnitSize.X;
-                        float positiony = e.Sprite.YAbsolute * Game.UnitSize.Y;
+                        float positionx = e.Sprite.XAbsolute * Game.UnitSize.X + Game.UnitSize.X / 2;
+                        float positiony = e.Sprite.YAbsolute * Game.UnitSize.Y + Game.UnitSize.Y / 2;
                         Raylib.Vector2 position = new Raylib.Vector2(positionx , positiony );
                         //scale
                         float scale = e.Sprite.Size;

@@ -18,7 +18,7 @@ namespace GameFramework
             Icon = '█';
             OnUpdate += rotation;
         }
-        public void rotation()
+        public void rotation(float deltaTime)
         {
            // Rotate(.5f);
         }

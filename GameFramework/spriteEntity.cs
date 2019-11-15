@@ -27,22 +27,22 @@ namespace GameFramework
 
         public float Top
         {
-            get { return YAbsolute; }
+            get { return YAbsolute + 0.5f; }
         }
 
         public float Bottom
         {
-            get { return YAbsolute + Height;  }
+            get { return YAbsolute + Height + 0.5f;  }
         }
 
         public float Left
         {
-            get { return XAbsolute; }
+            get { return XAbsolute + 0.5f; }
         }
 
         public float right
         {
-            get { return XAbsolute + Width; }
+            get { return XAbsolute + Width + 0.5f; }
         }
 
         public Texture2D Texture

@@ -10,6 +10,20 @@ namespace GameFramework
     {
         public float X, Y, Z;
 
+        public static Vector3 Min(Vector3 a, Vector3 b)
+        {
+            return new Vector3(Math.Min(a.X, b.X), Math.Min(a.Y, b.Y), Math.Min(a.Z, b.Z));
+        }
+
+        public static Vector3 Max(Vector3 a, Vector3 b)
+        {
+            return new Vector3(Math.Max(a.X, a.Y), Math.Max(a.Y, b.Y), Math.Max(a.Z, b.Z));
+        }
+
+        public static Vector3 Clamp(Vector3 t, Vector3 a, Vector3 b)
+        {
+            return Max(a, Min(b, t));
+        }
 
         public Vector3()
         {
@@ -109,6 +123,7 @@ namespace GameFramework
 
             return (float)Math.Acos(d);
         }
+
 
     }
 }

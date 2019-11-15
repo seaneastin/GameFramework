@@ -10,8 +10,22 @@ namespace GameFramework
     {
 
         private Direction _facing;
-        public float Speed { get; set; } = .30f;
+        private float _speed = 5f;
+        public float Speed {
+            get
+            {
+                return _speed;
+            }
+
+
+            set
+            {
+             _speed = value;
+            }
+        }
         
+        
+
         public Enemy() 
         {
 
@@ -24,7 +38,7 @@ namespace GameFramework
             OnUpdate += TouchPlayer;
         }
 
-        private void TouchPlayer()
+        private void TouchPlayer(float deltaTime)
         {
             List<Entity> touched;
             touched = MyScene.GetEntities(x, y);
@@ -44,33 +58,33 @@ namespace GameFramework
             }
         }
 
-            public void Move()
+            public void Move(float deltaTime)
         {
            // Rotate(.05f);
             //Scale = 2f;
             switch (_facing)
             {
                 case Direction.North:
-                    MoveUP();
+                    MoveUP(deltaTime);
                     break;
                 case Direction.South:
-                    MoveDown();
+                    MoveDown(deltaTime);
                     break;
                 case Direction.East:
-                    MoveLeft();
+                    MoveLeft(deltaTime);
                     break;
                 case Direction.West:
-                    MoveRight();
+                    MoveRight(deltaTime);
                     break;
 
             }
         }
 
-        public void MoveDown()
+        public void MoveDown(float deltaTime)
         {
-            if (!MyScene.GetCollision(XAbsolute, Sprite.Bottom + Speed))
+            if (!MyScene.GetCollision(XAbsolute, Sprite.Bottom + Speed * deltaTime))
             {
-                yVelocity = Speed;
+                yVelocity = Speed * deltaTime;
             }
             else
             {
@@ -79,12 +93,12 @@ namespace GameFramework
             }
         }
 
-        public void MoveUP()
+        public void MoveUP(float deltaTime)
         {
-            if (!MyScene.GetCollision(XAbsolute, Sprite.Top - Speed))
+            if (!MyScene.GetCollision(XAbsolute, Sprite.Top - Speed * deltaTime))
 
             {
-                yVelocity = -Speed;
+                yVelocity = -Speed * deltaTime;
 
             }
             else
@@ -95,11 +109,11 @@ namespace GameFramework
             
         }
 
-        public void MoveLeft()
+        public void MoveLeft(float deltaTime)
         {
-            if (!MyScene.GetCollision(YAbsolute, Sprite.Left - Speed))
+            if (!MyScene.GetCollision(YAbsolute, Sprite.Left - Speed * deltaTime))
             {
-                xVelocity = -Speed;
+                xVelocity = -Speed * deltaTime;
             }
             else
             {
@@ -108,11 +122,11 @@ namespace GameFramework
             }
         }
 
-        public void MoveRight()
+        public void MoveRight(float deltaTime)
         {
-            if (!MyScene.GetCollision(YAbsolute, Sprite.right + Speed))
+            if (!MyScene.GetCollision(YAbsolute, Sprite.right + Speed * deltaTime))
             {
-                xVelocity = Speed;
+                xVelocity = Speed * deltaTime;
             }
             else
             {
