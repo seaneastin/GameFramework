@@ -151,7 +151,7 @@ namespace GameFramework
         {
             get
             {
-                return (float)Math.Atan2(_localTransform.m21, _localTransform.m11);
+                return (float)Math.Atan2(_globalTransform.m21, _globalTransform.m11);
             }
             // set
             // {

@@ -9,7 +9,7 @@ namespace GameFramework
     class Player : Entity
     {
         private PlayerInput _input = new PlayerInput();
-        private Entity _sword = new Entity('/', "imges/ezgif/tile012.png");
+        private Entity _sword = new Entity('/', "imges/ezgif/tile137.png");
 
 
         public Entity Sword
@@ -71,9 +71,9 @@ namespace GameFramework
         {
             foreach (Entity child in _children)
             {
-                // child.Rotate(.4f * deltaTime);
+               //child.Rotate(.4f * deltaTime);
             }
-            Rotate(.4f);
+            Rotate(.4f * deltaTime);
         }
 
 
