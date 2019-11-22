@@ -76,7 +76,7 @@ namespace GameFramework
                 case Direction.West:
                     MoveRight(deltaTime);
                     break;
-
+                    
             }
         }
 
